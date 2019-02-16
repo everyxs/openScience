@@ -1,7 +1,7 @@
-# Open science can advance a communal culture, promote women's participation, diversity and discovery.
+### Open science can advance a communal culture, promote women's participation, diversity and discovery.
 
 Author block 1:
-Mary C. Murphy, Amanda Mejia*, Jorge Mejia, Xiaoran Yan, 
+Mary C. Murphy, Amanda Mejia, Jorge Mejia, Xiaoran Yan, 
 
 Author block 2:
 Cassidy Sugimoto, Sapna Cheryan, Nilanjana Dasgupta, Mesmin Destin, Stephanie A Fryberg, Julie A. Garcia, Elizabeth L. Haines, Judith M. Harackiewicz, Valerie Jones Taylor, Alison Ledgerwood, Corinne A. Moss-Racusin, Lora E Park, Sylvia, P., Perry, Kate A. Ratliff, Aneeta Rattan, Diana T. Sanchez, Krishna Savani, Denise Sekaquaptewa, Jessi L. Smith, Dustin B. Thoman, Daryl A. Wout,
