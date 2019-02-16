@@ -1,4 +1,4 @@
-### Open science can advance a communal culture, promote women's participation, diversity and discovery.
+### Open science and communal culture promote women's participation, diversity and discovery.
 
 Author block 1:
 Mary C. Murphy, Amanda Mejia, Jorge Mejia, Xiaoran Yan, 
