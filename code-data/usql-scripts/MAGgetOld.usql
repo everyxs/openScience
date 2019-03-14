@@ -1,0 +1,198 @@
+// Auto-generated header code
+
+// Auto-generated header code ended
+
+// User script
+// This U-SQL script demonstrates loading data provided in this dataset
+// and computing h-index for all authors of an affiliation.
+// U-SQL script could be run in Azure Data Lake Analytic service.
+//
+// To do:
+//   1. Run CreateFunctions.usql to define functions before running this script
+//   2. Replace ##YourBlobAccount## with your blob account
+//
+//
+DECLARE @dataVersion string = "mag-2019-03-02";
+DECLARE @blobAccount string = "iunimag";
+DECLARE @uriPrefix   string = "wasb://" + @dataVersion + "@" + @blobAccount + "/";
+DECLARE @output   string = @uriPrefix + "Open-old.csv";
+DECLARE @output2   string = @uriPrefix + "Reproduce-old.csv";
+DECLARE @graphDir   string = "/graph/2018-02-23/";
+//
+// Load Academic Graph data
+@papers = Papers(@graphDir);
+@paperAuthorAffiliations = PaperAuthorAffiliations(@graphDir);
+@authors = Authors(@graphDir);
+@abstracts = PaperAbstractsInvertedIndex(@graphDir);
+@FieldsOfStudy = FieldsOfStudy(@graphDir);
+@PaperFieldsOfStudy = PaperFieldsOfStudy(@graphDir);
+@journals = Journals(@graphDir);
+//@citations = PaperReferences(@uriPrefix);
+
+@OpenPapers =
+    SELECT PFoS.PaperId
+    FROM @FieldsOfStudy AS FoS
+         INNER JOIN @PaperFieldsOfStudy AS PFoS
+         ON FoS.FieldOfStudyId == PFoS.FieldOfStudyId
+         INNER JOIN @papers AS P
+         ON PFoS.PaperId == P.PaperId
+         WHERE FoS.NormalizedName == "open science";
+
+@OpenPaperTopics =
+    SELECT PFoS.PaperId,
+           string.Join("; ", ARRAY_AGG(FoS.FieldOfStudyId)) AS FoSIds,
+           string.Join("; ", ARRAY_AGG(FoS.NormalizedName)) AS FoSNames,
+           string.Join("; ", ARRAY_AGG(FoS.PaperCount)) AS FoSPaperCounts,
+           string.Join("; ", ARRAY_AGG(FoS.CitationCount)) AS FoSCiteCounts
+    FROM @FieldsOfStudy AS FoS
+         INNER JOIN @PaperFieldsOfStudy AS PFoS
+         ON FoS.FieldOfStudyId == PFoS.FieldOfStudyId
+         INNER JOIN @OpenPapers AS P
+         ON PFoS.PaperId == P.PaperId
+    GROUP BY PFoS.PaperId;
+
+@RepPapers =
+    SELECT PFoS.PaperId
+    FROM @FieldsOfStudy AS FoS
+         INNER JOIN @PaperFieldsOfStudy AS PFoS
+         ON FoS.FieldOfStudyId == PFoS.FieldOfStudyId
+         INNER JOIN @papers AS P
+         ON PFoS.PaperId == P.PaperId
+         WHERE FoS.NormalizedName == "reproducibility";
+
+@RepPaperTopics =
+    SELECT PFoS.PaperId,
+           string.Join("; ", ARRAY_AGG(FoS.FieldOfStudyId)) AS FoSIds,
+           string.Join("; ", ARRAY_AGG(FoS.NormalizedName)) AS FoSNames,
+           string.Join("; ", ARRAY_AGG(FoS.PaperCount)) AS FoSPaperCounts,
+           string.Join("; ", ARRAY_AGG(FoS.CitationCount)) AS FoSCiteCounts
+    FROM @FieldsOfStudy AS FoS
+         INNER JOIN @PaperFieldsOfStudy AS PFoS
+         ON FoS.FieldOfStudyId == PFoS.FieldOfStudyId
+         INNER JOIN @RepPapers AS P
+         ON PFoS.PaperId == P.PaperId
+    GROUP BY PFoS.PaperId;
+
+@joinPapers =    
+    SELECT * FROM @OpenPaperTopics
+    INTERSECT DISTINCT      // Using DISTINCT is optional as it is the default value
+    SELECT * FROM @RepPaperTopics;  
+
+@papersNoOverlap =    
+    SELECT * FROM @OpenPaperTopics
+    UNION DISTINCT      // Using DISTINCT is optional as it is the default value
+    SELECT * FROM @RepPaperTopics
+    EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
+    SELECT * FROM @joinPapers;  
+
+@papersOpen =   
+    SELECT * FROM @OpenPaperTopics
+    EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
+    SELECT * FROM @joinPapers;  
+@papersRep =     
+    SELECT * FROM @RepPaperTopics
+    EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
+    SELECT * FROM @joinPapers;  
+
+@AuthorPapers =
+    SELECT Paa.PaperId,
+           string.Join("; ", ARRAY_AGG(A.AuthorId)) AS AuthorIds,
+           string.Join("; ", ARRAY_AGG(A.DisplayName)) AS AuthorNames,
+           string.Join("; ", ARRAY_AGG(A.PaperCount)) AS AuthorPapers,
+           string.Join("; ", ARRAY_AGG(Paa.AuthorSequenceNumber)) AS AuthorOrders,
+           string.Join("; ", ARRAY_AGG(Paa.AffiliationId)) AS Affiliates
+    FROM @authors AS A
+         INNER JOIN @paperAuthorAffiliations AS Paa
+         ON A.AuthorId == Paa.AuthorId
+         INNER JOIN @papersNoOverlap AS P
+         ON Paa.PaperId == P.PaperId
+    GROUP BY Paa.PaperId;
+
+@OpenPapersFull =
+    SELECT DISTINCT  A.AuthorIds,
+           A.AuthorNames,
+           A.AuthorOrders,
+           A.AuthorPapers,
+           P0.FoSNames,
+           P0.FoSPaperCounts,
+           P0.FoSCiteCounts,
+           J.DisplayName,
+           J.NormalizedName,
+           P.PaperId,
+           P.Rank,
+           P.Doi,
+           P.DocType,
+           P.JournalId,
+           P.ConferenceInstanceId,
+           P.OriginalTitle,
+           P.Year,
+           P.Date,
+           P.Publisher,
+           P.ReferenceCount,
+           P.CitationCount,
+           P.EstimatedCitation,
+           Ab.IndexedAbstract
+    FROM @papersOpen AS P0
+         LEFT OUTER JOIN
+             @papers AS P
+         ON P0.PaperId == P.PaperId
+         LEFT OUTER JOIN
+             @AuthorPapers AS A
+         ON P0.PaperId == A.PaperId
+         LEFT OUTER JOIN
+             @abstracts AS Ab
+         ON P0.PaperId == Ab.PaperId
+         LEFT OUTER JOIN
+             @journals AS J
+         ON P.JournalId == J.JournalId;
+
+OUTPUT @OpenPapersFull
+TO @output
+USING Outputters.Tsv(quoting : true, outputHeader : true);
+
+@RepPapersFull =
+    SELECT DISTINCT  A.AuthorIds,
+           A.AuthorNames,
+           A.AuthorOrders,
+           A.AuthorPapers,
+           P0.FoSNames,
+           P0.FoSPaperCounts,
+           P0.FoSCiteCounts,
+           J.DisplayName,
+           J.NormalizedName,
+           P.PaperId,
+           P.Rank,
+           P.Doi,
+           P.DocType,
+           P.JournalId,
+           P.ConferenceInstanceId,
+           P.OriginalTitle,
+           P.Year,
+           P.Date,
+           P.Publisher,
+           P.ReferenceCount,
+           P.CitationCount,
+           P.EstimatedCitation,
+           Ab.IndexedAbstract
+    FROM @papersRep AS P0
+         LEFT OUTER JOIN
+             @papers AS P
+         ON P0.PaperId == P.PaperId
+         LEFT OUTER JOIN
+             @AuthorPapers AS A
+         ON P0.PaperId == A.PaperId
+         LEFT OUTER JOIN
+             @abstracts AS Ab
+         ON P0.PaperId == Ab.PaperId
+         LEFT OUTER JOIN
+             @journals AS J
+         ON P.JournalId == J.JournalId;
+
+OUTPUT @RepPapersFull
+TO @output2
+USING Outputters.Tsv(quoting : true, outputHeader : true);
+// User script ended
+// Auto-generated footer code
+
+// Auto-generated footer code ended
+
