@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -q preempt -l nodes=16:ppn=9,vmem=61gb,walltime=170:00:00
+#PBS -q preempt -l nodes=24:ppn=5,vmem=31gb,walltime=170:00:00
 #PBS -M yan30@iu.edu
 #PBS -m abe
 #PBS -N spark_yan
