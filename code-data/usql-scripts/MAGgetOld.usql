@@ -27,6 +27,7 @@ DECLARE @graphDir   string = "/graph/2018-02-23/";
 @FieldsOfStudy = FieldsOfStudy(@graphDir);
 @PaperFieldsOfStudy = PaperFieldsOfStudy(@graphDir);
 @journals = Journals(@graphDir);
+@url = PaperUrls(@graphDir);
 //@citations = PaperReferences(@uriPrefix);
 
 @OpenPapers =
@@ -73,26 +74,26 @@ DECLARE @graphDir   string = "/graph/2018-02-23/";
          ON PFoS.PaperId == P.PaperId
     GROUP BY PFoS.PaperId;
 
-@joinPapers =    
-    SELECT * FROM @OpenPaperTopics
-    INTERSECT DISTINCT      // Using DISTINCT is optional as it is the default value
-    SELECT * FROM @RepPaperTopics;  
+//@joinPapers =    
+    //SELECT * FROM @OpenPaperTopics
+    //INTERSECT DISTINCT      // Using DISTINCT is optional as it is the default value
+    //SELECT * FROM @RepPaperTopics;  
 
 @papersNoOverlap =    
     SELECT * FROM @OpenPaperTopics
     UNION DISTINCT      // Using DISTINCT is optional as it is the default value
-    SELECT * FROM @RepPaperTopics
-    EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
-    SELECT * FROM @joinPapers;  
+    SELECT * FROM @RepPaperTopics;
+    //EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
+    //SELECT * FROM @joinPapers;  
 
 @papersOpen =   
-    SELECT * FROM @OpenPaperTopics
-    EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
-    SELECT * FROM @joinPapers;  
+    SELECT * FROM @OpenPaperTopics;
+    //EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
+    //SELECT * FROM @joinPapers;  
 @papersRep =     
-    SELECT * FROM @RepPaperTopics
-    EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
-    SELECT * FROM @joinPapers;  
+    SELECT * FROM @RepPaperTopics;
+    //EXCEPT DISTINCT // Using DISTINCT is optional as it is the default value
+    //SELECT * FROM @joinPapers;  
 
 @AuthorPapers =
     SELECT Paa.PaperId,
@@ -107,6 +108,14 @@ DECLARE @graphDir   string = "/graph/2018-02-23/";
          INNER JOIN @papersNoOverlap AS P
          ON Paa.PaperId == P.PaperId
     GROUP BY Paa.PaperId;
+
+@URLPapers =
+    SELECT P.PaperId,
+           string.Join("; ", ARRAY_AGG(U.SourceUrl)) AS URLs
+    FROM @url AS U
+         INNER JOIN @papersNoOverlap AS P
+         ON U.PaperId == P.PaperId
+    GROUP BY P.PaperId;
 
 @OpenPapersFull =
     SELECT DISTINCT  A.AuthorIds,
@@ -131,6 +140,7 @@ DECLARE @graphDir   string = "/graph/2018-02-23/";
            P.ReferenceCount,
            P.CitationCount,
            P.EstimatedCitation,
+           U.URLs,
            Ab.IndexedAbstract
     FROM @papersOpen AS P0
          LEFT OUTER JOIN
@@ -141,7 +151,10 @@ DECLARE @graphDir   string = "/graph/2018-02-23/";
          ON P0.PaperId == A.PaperId
          LEFT OUTER JOIN
              @abstracts AS Ab
-         ON P0.PaperId == Ab.PaperId
+         ON P0.PaperId == Ab.PaperId         
+         LEFT OUTER JOIN
+             @URLPapers AS U
+         ON P0.PaperId == U.PaperId
          LEFT OUTER JOIN
              @journals AS J
          ON P.JournalId == J.JournalId;
@@ -173,6 +186,7 @@ USING Outputters.Tsv(quoting : true, outputHeader : true);
            P.ReferenceCount,
            P.CitationCount,
            P.EstimatedCitation,
+           U.URLs,
            Ab.IndexedAbstract
     FROM @papersRep AS P0
          LEFT OUTER JOIN
@@ -185,8 +199,12 @@ USING Outputters.Tsv(quoting : true, outputHeader : true);
              @abstracts AS Ab
          ON P0.PaperId == Ab.PaperId
          LEFT OUTER JOIN
+             @URLPapers AS U
+         ON P0.PaperId == U.PaperId
+         LEFT OUTER JOIN
              @journals AS J
          ON P.JournalId == J.JournalId;
+
 
 OUTPUT @RepPapersFull
 TO @output2
