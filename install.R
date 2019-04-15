@@ -1,4 +1,5 @@
-install.packages("tidyverse")
+install.packages("dplyr")
+install.packages("tidyr")
 install.packages("widyr")
 install.packages("igraph")
 #install.packages("gender")
