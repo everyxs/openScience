@@ -1,0 +1,4 @@
+Inside the jupyter server
+
+pip install git+https://github.com/pytries/datrie.git
+pip install snakemake
