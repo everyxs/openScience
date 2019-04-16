@@ -13,7 +13,7 @@ If you don't see these commands, install the extension manually with
 jupyter labextension install jupyterlab-jupytext
 jupytext --set-formats ipynb,py [--sync] notebook.ipynb
 jupytext --to py dataIngestion.ipynb
-jupytext --to R dataTransoformation.ipynb
+jupytext --to R dataTransformation.ipynb
 
 conda install -c conda-forge graphviz xorg-libxrender xorg-libxpm
 pip install graphviz
