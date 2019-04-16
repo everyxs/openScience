@@ -1,7 +1,5 @@
 ### Reproducibility guide
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo/9f188e5aab7c4a22df2d8aeb6383ee0a0da9dc38)
-.. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo/9f188e5aab7c4a22df2d8aeb6383ee0a0da9dc38
  
 ### Open science and communal culture promote women's participation, diversity and discovery.
 
