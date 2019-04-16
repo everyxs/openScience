@@ -1,4 +1,17 @@
-Inside the jupyter server
+add these to binder requirements.txt
 
 pip install git+https://github.com/pytries/datrie.git
 pip install snakemake
+
+Following
+https://github.com/mwouts/jupytext
+pip install jupytext --upgrade
+jupyter nbextension install --py jupytext
+jupyter nbextension enable --py jupytext
+
+If you don't see these commands, install the extension manually with
+jupyter labextension install jupyterlab-jupytext
+jupytext --set-formats ipynb,py [--sync] notebook.ipynb
+jupytext --to py dataIngestion.ipynb
+
+
