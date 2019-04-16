@@ -1,14 +1,20 @@
-rule input:
+rule all:
+    input: 
+        "Open-old.csv",
+        "plots.pdf"
+
+rule readData:
     input:
-        "code-data/Open-old.csv"
+        "Open-old.csv"
     output:
-        "code-data/Open.csv"
+        "Open.csv"
     script:
-        "code-data/dataIngestion.py"
-rule output:
+        "dataIngestion.py"
+        
+rule plotData:
     input:
-        "code-data/Open.csv"
+        rules.readData.output
     output:
-        "code-data/plots.pdf"
+        "plots.pdf"
     script:
-        "code-data/dataTransformation.R"
+        "dataTransformation.R"
