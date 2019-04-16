@@ -1,10 +1,6 @@
 ### Reproducibility guide
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo/9f188e5aab7c4a22df2d8aeb6383ee0a0da9dc38)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo.git/b56d1367f0852bdc3a3875dfc7af4f074161fbc3)
 
-https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo.git/ed1d42932db4710879a207a74aa52fae8cd02cd9
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo.git/ed1d42932db4710879a207a74aa52fae8cd02cd9)
- 
 ### Open science and communal culture promote women's participation, diversity and discovery.
 
 Author block 1:
