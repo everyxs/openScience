@@ -1,6 +1,7 @@
 ### Reproducibility guide
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo.git/b56d1367f0852bdc3a3875dfc7af4f074161fbc3)
 
+test[![Binder](http://52.191.170.48/badge_logo.svg)](http://52.191.170.48/v2/gh/iuni-cadre/ReproducibilityDemo.git/master)
 ### Open science and communal culture promote women's participation, diversity and discovery.
 
 Author block 1:
