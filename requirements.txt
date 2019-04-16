@@ -1,4 +1,6 @@
 numpy
 pandas
 matplotlib
+git+https://github.com/pytries/datrie.git
 snakemake
+jupytext
