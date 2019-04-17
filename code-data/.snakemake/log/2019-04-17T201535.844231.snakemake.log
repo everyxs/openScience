@@ -1,0 +1,3 @@
+AttributeError in line 30 of /home/jovyan/ReproducibilityDemo/code-data/Snakefile:
+'OutputFiles' object has no attribute 'genderInput'
+  File "/home/jovyan/ReproducibilityDemo/code-data/Snakefile", line 30, in <module>

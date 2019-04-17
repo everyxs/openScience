@@ -1,0 +1,28 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	dataTransformation
+	1	genderDetect
+	3
+
+[Wed Apr 17 20:20:57 2019]
+rule dataTransformation:
+    input: Open.csv, Reproduce.csv
+    output: openRaw.graphml, reproduceRaw.graphml, duplicated_remove.csv, newdataCombined.csv
+    jobid: 2
+
+Waiting at most 30 seconds for missing files.
+MissingOutputException in line 18 of /home/jovyan/ReproducibilityDemo/code-data/Snakefile:
+Missing files after 30 seconds:
+openRaw.graphml
+reproduceRaw.graphml
+This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
+Removing output files of failed job dataTransformation since they might be corrupted:
+duplicated_remove.csv, newdataCombined.csv
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jovyan/ReproducibilityDemo/code-data/.snakemake/log/2019-04-17T202057.290528.snakemake.log
