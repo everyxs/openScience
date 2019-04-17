@@ -1,7 +1,9 @@
 # Install a JupyterLab extension for building scripts from notebooks
+jupyter contrib nbextension install --user
 jupyter nbextension install --py jupytext --user
 jupyter nbextension enable --py jupytext --user
 jupyter labextension install jupyterlab-jupytext
+jupyter nbextensions_configurator enable --user
 
 # Install graphviz for workflow visualization
 conda install -c conda-forge graphviz xorg-libxrender xorg-libxpm
