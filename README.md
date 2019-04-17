@@ -1,6 +1,8 @@
 ### Reproducibility guide
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo/master)
 
+### Open science and communal culture promote women's participation, diversity and discovery.
+
 Author block 1:
 Mary C. Murphy, Amanda Mejia, Jorge Mejia, Xiaoran Yan, 
 
