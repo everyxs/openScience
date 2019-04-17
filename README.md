@@ -1,5 +1,5 @@
 ### Reproducibility guide
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo.git/b56d1367f0852bdc3a3875dfc7af4f074161fbc3)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo/master)
 
 Author block 1:
 Mary C. Murphy, Amanda Mejia, Jorge Mejia, Xiaoran Yan, 
