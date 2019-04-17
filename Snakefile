@@ -7,32 +7,32 @@ rule outputs:
 
 rule dataIngestion:
     input:
-        "Open-old.csv", "Reproduce-old.csv"
+        "code-data/Open-old.csv", "code-data/Reproduce-old.csv"
     output:
-        "Open.csv", "Reproduce.csv"
+        "code-data/Open.csv", "code-data/Reproduce.csv"
     script:
-        "dataIngestion.py"
+        "code-data/dataIngestion.py"
         
 rule dataTransformation:
     input:
         rules.dataIngestion.output
     output:
-        open = "openRaw.graphml", rep = "reproduceRaw.graphml", "duplicated_remove.csv",  genderInput = "newdataCombined.csv"
+        open = "code-data/openRaw.graphml", rep = "code-data/reproduceRaw.graphml", "code-data/duplicated_remove.csv",  genderInput = "code-data/newdataCombined.csv"
     script:
-        "dataTransformation.R"
+        "code-data/dataTransformation.R"
 
 rule genderDetect:
     input:
         rules.dataTransformation.output.genderInput
     output:
-        "OpenSci3.csv", "Pie.csv"
+        "code-data/OpenSci3.csv", "code-data/Pie.csv"
     script:
-        "genderDetect.R"
+        "code-data/genderDetect.R"
         
 rule visualize:
     input:
         rules.dataTransformation.output.open, rules.dataTransformation.output.rep
     output:
         "dist/openScience.pdf", "dist/reproducibility.pdf"
-    shell:
-        "dist/java -jar "GephiVisualization.jar"
+    script:
+        "dist/visualize.py"
