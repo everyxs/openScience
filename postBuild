@@ -9,3 +9,6 @@ jupyter nbextensions_configurator enable --user
 # Install graphviz for workflow visualization
 conda install -c conda-forge graphviz xorg-libxrender xorg-libxpm
 pip install graphviz
+
+# set java homne
+ENV JAVA_HOME  /usr/lib/jvm/java-8-openjdk-amd64/
