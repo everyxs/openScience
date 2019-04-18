@@ -1,0 +1,41 @@
+rule outputs:
+    input: 
+        "visualize/openScience.pdf",
+        "visualize/reproducibility.pdf",
+        "OpenSci3.csv",
+        "Pie.csv"
+
+rule dataIngestion:
+    input:
+        "Open-old.csv", "Reproduce-old.csv"
+    output:
+        "Open.csv", "Reproduce.csv"
+    script:
+        "dataIngestion.py"
+        
+rule dataTransformation:
+    input:
+        rules.dataIngestion.output
+    output:
+        open = "openRaw.graphml",
+        rep = "reproduceRaw.graphml", 
+        dup = "duplicated_remove.csv", 
+        genderInput = "newdataCombined.csv"
+    script:
+        "dataTransformation.R"
+
+rule genderDetect:
+    input:
+        rules.dataTransformation.output.genderInput
+    output:
+        "OpenSci3.csv", "Pie.csv"
+    script:
+        "genderDetect.R"
+        
+rule visualize:
+    input:
+        rules.dataTransformation.output.open, rules.dataTransformation.output.rep
+    output:
+        "visualize/openScience.pdf", "visualize/reproducibility.pdf"
+    script:
+        "visualize.py"

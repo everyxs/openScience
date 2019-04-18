@@ -1,0 +1,24 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	outputs
+	1	visualize
+	2
+
+[Thu Apr 18 18:35:53 2019]
+rule visualize:
+    input: openRaw.graphml, reproduceRaw.graphml
+    output: visualize/openScience.pdf, visualize/reproducibility.pdf
+    jobid: 1
+
+[Thu Apr 18 18:35:53 2019]
+Error in rule visualize:
+    jobid: 1
+    output: visualize/openScience.pdf, visualize/reproducibility.pdf
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jovyan/ReproducibilityDemo/code-data/.snakemake/log/2019-04-18T183553.480829.snakemake.log

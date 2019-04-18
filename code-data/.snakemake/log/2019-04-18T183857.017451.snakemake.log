@@ -1,0 +1,27 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	dataIngestion
+	1	dataTransformation
+	1	genderDetect
+	1	outputs
+	1	visualize
+	5
+
+[Thu Apr 18 18:38:57 2019]
+rule dataIngestion:
+    input: Open-old.csv, Reproduce-old.csv
+    output: Open.csv, Reproduce.csv
+    jobid: 4
+
+[Thu Apr 18 18:38:57 2019]
+Error in rule dataIngestion:
+    jobid: 4
+    output: Open.csv, Reproduce.csv
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jovyan/ReproducibilityDemo/code-data/.snakemake/log/2019-04-18T183857.017451.snakemake.log
