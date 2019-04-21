@@ -18,5 +18,5 @@ jupyter notebook --no-browser --port=8000
 lsof -ti:8000 | xargs kill -9
 
 Open another terminal locally,
-ssh -N -f -L localhost:8001:localhost:8000 yan30@karst.uits.iu.edu
+ssh -N -f -L localhost:8001:127.0.0.1:8000 yan30@karst.uits.iu.edu
 Point your browser to localhost:8001
