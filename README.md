@@ -1,4 +1,4 @@
-Click [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo.git/8ff32848f3db606d05ac55233afa73ce8c914de6) for a reproducible notebook environment. Follow our step-by-step instruciton at [the wiki page.](https://github.com/iuni-cadre/ReproducibilityDemo/wiki/A-demo-of-reproducibility)
+Click [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/iuni-cadre/ReproducibilityDemo.git/8ff32848f3db606d05ac55233afa73ce8c914de6) for a reproducible container environment. Follow our step-by-step instruciton at [the wiki page.](https://github.com/iuni-cadre/ReproducibilityDemo/wiki/A-demo-of-reproducibility)
 
 ### Open science and communal culture promote women's participation, diversity and discovery.
 
