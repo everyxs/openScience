@@ -12,11 +12,6 @@
 #     name: ir
 # ---
 
-# + {"active": "ipynb"}
-# .libPaths( c( .libPaths(), "/home/jovyan/libraries") )
-# .libPaths()[3]
-# -
-
 library(dplyr)
 library(tidyr)
 #install.packages('gender',lib=.libPaths()[3])
@@ -130,8 +125,87 @@ dataRep <- dataRep[dataRep$Tag=="Reproducibility",]
 pieRep <- dplyr::bind_rows(colSums(dataRep[,-1], na.rm = TRUE))
 pie <- dplyr::bind_rows(list(OpenScience=pieOpen, Reproducibility=pieRep), .id = 'Tag')
 pie$sum <- rowSums(pie[-1])
-write_csv(pie, "Pie.csv")
+#write_csv(pie, "Pie.csv")
 
 pie
+
+# +
+library(tibble)
+single <- pie[c("singleMale","singleFemale","singleUnknown")]
+single <- as.data.frame(t(single))
+# Calculate percentage
+single$V1p <- single$V1 / sum(single$V1)
+single$V2p <- single$V2 / sum(single$V2)
+single <- rownames_to_column(single, "Legend") 
+# Reorder the rows for plotting and lockin with factors
+single <- single[c(3,2,1),]
+single$Legend <- factor(single$Legend, levels = single$Legend)
+
+# Add label position for pie charts
+single <- single %>%
+  arrange(desc(Legend)) %>%
+  mutate(lab.ypos1 = cumsum(V1p) - 0.5*V1p)
+single <- single %>%
+  arrange(desc(Legend)) %>%
+  mutate(lab.ypos2 = cumsum(V2p) - 0.5*V2p)
+# Prepare the labels for plotting
+single$V1l <- sprintf("%0.2f%%", single$V1p * 100)
+single$V2l <- sprintf("%0.2f%%", single$V2p * 100)
+single
+# -
+
+pdf("SinglePie.pdf")
+library(ggplot2)
+bp<- ggplot(single, aes(x="", y=V1p, fill=Legend))+ ggtitle("Open science") +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) +
+  geom_text(aes(y = lab.ypos1, label = V1l))
+bp
+bp2<- ggplot(single, aes(x="", y=V2p, fill=Legend))+ ggtitle("Reproducibility") +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) +
+  geom_text(aes(y = lab.ypos2, label = V2l))
+bp2
+dev.off()
+
+# +
+multi <- pie[c("allmale","maleUnknown","allUnknown","femaleUnknown","allfemale","mixed")]
+multi$maleUnknown <- multi$maleUnknown + pie$UnknownMale
+multi$femaleUnknown <- multi$femaleUnknown + pie$UnknownFemale
+multi <- as.data.frame(t(multi))
+# Calculate percentage
+multi$V1p <- multi$V1 / sum(multi$V1)
+multi$V2p <- multi$V2 / sum(multi$V2)
+multi <- rownames_to_column(multi, "Legend") 
+# Reorder the rows for plotting and lockin with factors
+multi <- multi[c(6,5,4,3,2,1),]
+multi$Legend <- factor(multi$Legend, levels = multi$Legend)
+
+# Add label position for pie charts
+multi <- multi %>%
+  arrange(desc(Legend)) %>%
+  mutate(lab.ypos1 = cumsum(V1p) - 0.5*V1p)
+multi <- multi %>%
+  arrange(desc(Legend)) %>%
+  mutate(lab.ypos2 = cumsum(V2p) - 0.5*V2p)
+# Prepare the labels for plotting
+multi$V1l <- sprintf("%0.2f%%", multi$V1p * 100)
+multi$V2l <- sprintf("%0.2f%%", multi$V2p * 100)
+multi
+# -
+
+pdf("MultiPie.pdf")
+library(ggplot2)
+bp<- ggplot(multi, aes(x="", y=V1p, fill=Legend))+ ggtitle("Open science") +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) +
+  geom_text(x = 1.2, aes(y = lab.ypos1, label = V1l))
+bp
+bp2<- ggplot(multi, aes(x="", y=V2p, fill=Legend))+ ggtitle("Reproducibility") +
+  geom_bar(width = 1, stat = "identity", color = "white") +
+  coord_polar("y", start = 0) +
+  geom_text(x = 1.2, aes(y = lab.ypos2, label = V2l))
+bp2
+dev.off()
 
 

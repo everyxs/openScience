@@ -3,7 +3,8 @@ rule outputs:
         "visualize/openScience.pdf",
         "visualize/reproducibility.pdf",
         "OpenSci3.csv",
-        "Pie.csv"
+        "SinglePie.pdf",
+        "MultiPie.pdf"
 
 rule dataIngestion:
     input:
@@ -28,7 +29,7 @@ rule genderDetect:
     input:
         rules.dataTransformation.output.genderInput
     output:
-        "OpenSci3.csv", "Pie.csv"
+        "OpenSci3.csv", "SinglePie.pdf", "MultiPie.pdf"
     script:
         "genderDetect.R"
         
