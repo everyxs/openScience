@@ -8,6 +8,10 @@ module load hadoop
 module load spark
 module unload java #use openjdk instead for scala interactive
 
+module swap python/3.6.3
+pip install jupyterlab --user
+jupyter serverextension enable --py jupyterlab
+
 pip install --user Toree
 export PATH=~/.local/bin:$PATH
 jupyter toree install --spark_home=$SPARK_HOME --user
