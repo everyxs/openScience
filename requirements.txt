@@ -6,3 +6,4 @@ git+https://github.com/pytries/datrie.git
 snakemake
 jupyter_contrib_nbextensions
 jupytext
+networkx
