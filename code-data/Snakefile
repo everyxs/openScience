@@ -1,18 +1,19 @@
 rule outputs:
     input: 
-        "visualize/openScience.pdf",
-        "visualize/reproducibility.pdf",
-        "OpenSci3.csv",
-        "SinglePie.pdf",
-        "MultiPie.pdf"
+        "figures/openScience.pdf", "figures/reproducibility.pdf",
+        "output/OpenSci3.csv", "output/OpenSci3Discipline.csv",
+        "figures/SinglePie.pdf", "figures/MultiPie.pdf",
+        "figures/TimeHist.pdf", "figures/TeamSizeHist.pdf", "figures/TeamSizeHist_fem.pdf", "figures/TimeTrends_fem.pdf", "figures/PredictedProbs_multiauthor_spline2.pdf", 
+        "figures/FoS_appearances.pdf", "figures/PredictedProbs_multiauthor_spline2_FOS.pdf",
+        "output/abstracts_scored_custom.csv", "figures/ProSocialHist.pdf"
 
 rule dataIngestion:
     input:
-        "Open-old.csv", "Reproduce-old.csv"
+        "input/Open-old.csv", "input/Reproduce-old.csv"
     output:
         "Open.csv", "Reproduce.csv"
     script:
-        "dataIngestion.py"
+        "scripts/dataIngestion.py"
         
 rule dataTransformation:
     input:
@@ -23,20 +24,53 @@ rule dataTransformation:
         dup = "duplicated_remove.csv", 
         genderInput = "newdataCombined.csv"
     script:
-        "dataTransformation.R"
+        "scripts/dataTransformation.R"
 
 rule genderDetect:
     input:
         rules.dataTransformation.output.genderInput
     output:
-        "OpenSci3.csv", "SinglePie.pdf", "MultiPie.pdf"
+        opensci = "output/OpenSci3.csv", spie = "figures/SinglePie.pdf", mpie = "figures/MultiPie.pdf"
     script:
-        "genderDetect.R"
+        "scripts/genderDetect.R"
+
+rule journalDisciplineMatch:
+    input:
+        rules.genderDetect.output.opensci, "input/OpenSci3Journal.csv"
+    output:
+        "output/OpenSci3Discipline.csv"
+    script:
+        "scripts/journalDisciplineMatch.py"
+        
+rule genderAnalysis:
+    input:
+        rules.journalDisciplineMatch.output
+    output:
+        "figures/TimeHist.pdf", "figures/TeamSizeHist.pdf", "figures/TeamSizeHist_fem.pdf", "figures/TimeTrends_fem.pdf", "figures/PredictedProbs_multiauthor_spline2.pdf", 
+        "figures/FoS_appearances.pdf", "figures/spline_estimates.pdf", "figures/PredictedProbs_multiauthor_spline2_FOS.pdf"
+    script:
+        "scripts/genderAnalysis.R"           
         
 rule visualize:
     input:
         rules.dataTransformation.output.open, rules.dataTransformation.output.rep
     output:
-        "visualize/openScience.pdf", "visualize/reproducibility.pdf"
+        "figures/openScience.pdf", "figures/reproducibility.pdf"
     script:
-        "visualize.py"
+        "figures/visualize.py"
+        
+rule computeSentiment:
+    input:
+        rules.journalDisciplineMatch.output, "input/Lancet Dictionaries.csv"
+    output:
+        "output/abstracts_scored_custom.csv", "abstracts_scored.csv"
+    script:
+        "scripts/computeSentiment.R"
+        
+rule textAnalysis:
+    input:
+        rules.computeSentiment.output, "input/Lancet Dictionaries.csv"
+    output:
+        "figures/ProSocialHist.pdf"
+    script:
+        "scripts/textAnalysis.R"
