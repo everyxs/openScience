@@ -1,0 +1,40 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	genderAnalysis
+	1	top
+	1	visualize
+	3
+
+[Wed Jun 26 18:38:38 2019]
+rule genderAnalysis:
+    input: output/OpenSci3Discipline.csv
+    output: figures/TimeHist.pdf, figures/TeamSizeHist.pdf, figures/TeamSizeHist_fem.pdf, figures/TimeTrends_fem.pdf, figures/PredictedProbs_multiauthor_spline2.pdf, figures/FoS_appearances.pdf, figures/spline_estimates.pdf, figures/PredictedProbs_multiauthor_spline2_FOS.pdf
+    jobid: 4
+
+[Wed Jun 26 18:38:44 2019]
+Finished job 4.
+1 of 3 steps (33%) done
+
+[Wed Jun 26 18:38:44 2019]
+rule visualize:
+    input: openRaw.graphml, reproduceRaw.graphml
+    output: figures/openScience.pdf, figures/reproducibility.pdf
+    jobid: 1
+
+[Wed Jun 26 18:39:02 2019]
+Finished job 1.
+2 of 3 steps (67%) done
+
+[Wed Jun 26 18:39:02 2019]
+localrule top:
+    input: figures/openScience.pdf, figures/reproducibility.pdf, output/OpenSci3.csv, output/OpenSci3Discipline.csv, figures/SinglePie.pdf, figures/MultiPie.pdf, figures/TimeHist.pdf, figures/TeamSizeHist.pdf, figures/TeamSizeHist_fem.pdf, figures/TimeTrends_fem.pdf, figures/PredictedProbs_multiauthor_spline2.pdf, figures/FoS_appearances.pdf, figures/PredictedProbs_multiauthor_spline2_FOS.pdf
+    jobid: 0
+
+[Wed Jun 26 18:39:02 2019]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: /home/jovyan/ReproducibilityDemo/code-data/.snakemake/log/2019-06-26T183838.089071.snakemake.log

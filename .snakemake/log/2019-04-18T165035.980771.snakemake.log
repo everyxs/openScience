@@ -1,0 +1,28 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	dataIngestion
+	1	dataTransformation
+	1	genderDetect
+	1	outputs
+	1	visualize
+	5
+
+[Thu Apr 18 16:50:36 2019]
+rule dataIngestion:
+    input: code-data/Open-old.csv, code-data/Reproduce-old.csv
+    output: code-data/Open.csv, code-data/Reproduce.csv
+    jobid: 4
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in line 8 of /home/jovyan/ReproducibilityDemo/Snakefile:
+Missing files after 5 seconds:
+code-data/Open.csv
+code-data/Reproduce.csv
+This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jovyan/ReproducibilityDemo/.snakemake/log/2019-04-18T165035.980771.snakemake.log

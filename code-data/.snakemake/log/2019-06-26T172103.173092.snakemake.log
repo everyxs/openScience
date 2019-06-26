@@ -1,0 +1,12 @@
+Building DAG of jobs...
+AmbiguousRuleException:
+Rules journalDisciplineMatch and genderDetect are ambiguous for the file figures/SinglePie.pdf.
+Consider starting rule output with a unique prefix, constrain your wildcards, or use the ruleorder directive.
+Wildcards:
+	journalDisciplineMatch: 
+	genderDetect: 
+Expected input files:
+	journalDisciplineMatch: output/OpenSci3.csv input/OpenSci3Journal.csv
+	genderDetect: newdataCombined.csvExpected output files:
+	journalDisciplineMatch: output/OpenSci3.csv figures/SinglePie.pdf figures/MultiPie.pdf
+	genderDetect: output/OpenSci3.csv figures/SinglePie.pdf figures/MultiPie.pdf

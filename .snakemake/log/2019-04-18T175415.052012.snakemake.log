@@ -1,0 +1,26 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	dataTransformation
+	1	genderDetect
+	1	outputs
+	1	visualize
+	4
+
+[Thu Apr 18 17:54:15 2019]
+rule dataTransformation:
+    input: code-data/Open.csv, code-data/Reproduce.csv
+    output: code-data/openRaw.graphml, code-data/reproduceRaw.graphml, code-data/duplicated_remove.csv, code-data/newdataCombined.csv
+    jobid: 3
+
+[Thu Apr 18 17:54:16 2019]
+Error in rule dataTransformation:
+    jobid: 3
+    output: code-data/openRaw.graphml, code-data/reproduceRaw.graphml, code-data/duplicated_remove.csv, code-data/newdataCombined.csv
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jovyan/ReproducibilityDemo/.snakemake/log/2019-04-18T175415.052012.snakemake.log

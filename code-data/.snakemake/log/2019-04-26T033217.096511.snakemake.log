@@ -1,0 +1,40 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	genderDetect
+	1	outputs
+	1	visualize
+	3
+
+[Fri Apr 26 03:32:17 2019]
+rule genderDetect:
+    input: newdataCombined.csv
+    output: OpenSci3.csv, SinglePie.pdf, MultiPie.pdf
+    jobid: 2
+
+[Fri Apr 26 03:32:32 2019]
+Finished job 2.
+1 of 3 steps (33%) done
+
+[Fri Apr 26 03:32:32 2019]
+rule visualize:
+    input: openRaw.graphml, reproduceRaw.graphml
+    output: visualize/openScience.pdf, visualize/reproducibility.pdf
+    jobid: 1
+
+[Fri Apr 26 03:32:33 2019]
+Finished job 1.
+2 of 3 steps (67%) done
+
+[Fri Apr 26 03:32:33 2019]
+localrule outputs:
+    input: visualize/openScience.pdf, visualize/reproducibility.pdf, OpenSci3.csv, SinglePie.pdf, MultiPie.pdf
+    jobid: 0
+
+[Fri Apr 26 03:32:33 2019]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: /home/jovyan/ReproducibilityDemo/code-data/.snakemake/log/2019-04-26T033217.096511.snakemake.log

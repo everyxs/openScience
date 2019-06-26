@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in line 8 of /home/jovyan/ReproducibilityDemo/Snakefile:
+Missing input files for rule dataIngestion:
+code-data/Reproduce-old.csv
+code-data/Open-old.csv

@@ -1,0 +1,29 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	outputs
+	1	visualize
+	2
+
+[Thu Apr 18 16:02:24 2019]
+rule visualize:
+    input: code-data/openRaw.graphml, code-data/reproduceRaw.graphml
+    output: dist/openScience.pdf, dist/reproducibility.pdf
+    jobid: 1
+
+[Thu Apr 18 16:02:25 2019]
+Finished job 1.
+1 of 2 steps (50%) done
+
+[Thu Apr 18 16:02:25 2019]
+localrule outputs:
+    input: dist/openScience.pdf, dist/reproducibility.pdf, code-data/OpenSci3.csv, code-data/Pie.csv
+    jobid: 0
+
+[Thu Apr 18 16:02:25 2019]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: /home/jovyan/ReproducibilityDemo/.snakemake/log/2019-04-18T160224.584659.snakemake.log

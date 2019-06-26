@@ -1,0 +1,29 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	computeSentiment
+	1	top
+	2
+
+[Wed Jun 26 18:50:58 2019]
+rule computeSentiment:
+    input: output/OpenSci3Discipline.csv, input/Lancet Dictionaries.csv
+    output: abstracts_scored_custom.csv, abstracts_scored.csv
+    jobid: 5
+
+[Wed Jun 26 18:52:35 2019]
+Finished job 5.
+1 of 2 steps (50%) done
+
+[Wed Jun 26 18:52:35 2019]
+localrule top:
+    input: figures/openScience.pdf, figures/reproducibility.pdf, output/OpenSci3.csv, output/OpenSci3Discipline.csv, figures/SinglePie.pdf, figures/MultiPie.pdf, figures/TimeHist.pdf, figures/TeamSizeHist.pdf, figures/TeamSizeHist_fem.pdf, figures/TimeTrends_fem.pdf, figures/PredictedProbs_multiauthor_spline2.pdf, figures/FoS_appearances.pdf, figures/PredictedProbs_multiauthor_spline2_FOS.pdf, abstracts_scored.csv
+    jobid: 0
+
+[Wed Jun 26 18:52:35 2019]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: /home/jovyan/ReproducibilityDemo/code-data/.snakemake/log/2019-06-26T185058.524361.snakemake.log

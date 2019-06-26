@@ -1,0 +1,25 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	textAnalysis
+	1	top
+	2
+
+[Wed Jun 26 19:32:43 2019]
+rule textAnalysis:
+    input: output/abstracts_scored_custom.csv, abstracts_scored.csv, input/Lancet Dictionaries.csv
+    output: figures/ProSocialHist.pdf
+    jobid: 6
+
+Terminating processes on user request, this might take some time.
+[Wed Jun 26 19:34:55 2019]
+Error in rule textAnalysis:
+    jobid: 6
+    output: figures/ProSocialHist.pdf
+
+Removing output files of failed job textAnalysis since they might be corrupted:
+figures/ProSocialHist.pdf
+Complete log: /home/jovyan/ReproducibilityDemo/code-data/.snakemake/log/2019-06-26T193243.296356.snakemake.log

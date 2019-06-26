@@ -1,0 +1,73 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	dataIngestion
+	1	dataTransformation
+	1	genderAnalysis
+	1	genderDetect
+	1	journalDisciplineMatch
+	1	top
+	1	visualize
+	7
+
+[Wed Jun 26 17:53:54 2019]
+rule dataIngestion:
+    input: input/Open-old.csv, input/Reproduce-old.csv
+    output: Open.csv, Reproduce.csv
+    jobid: 6
+
+[Wed Jun 26 17:54:03 2019]
+Finished job 6.
+1 of 7 steps (14%) done
+
+[Wed Jun 26 17:54:03 2019]
+rule dataTransformation:
+    input: Open.csv, Reproduce.csv
+    output: openRaw.graphml, reproduceRaw.graphml, duplicated_remove.csv, newdataCombined.csv
+    jobid: 5
+
+[Wed Jun 26 17:54:14 2019]
+Finished job 5.
+2 of 7 steps (29%) done
+
+[Wed Jun 26 17:54:14 2019]
+rule genderDetect:
+    input: newdataCombined.csv
+    output: output/OpenSci3.csv, figures/SinglePie.pdf, figures/MultiPie.pdf
+    jobid: 2
+
+[Wed Jun 26 17:54:30 2019]
+Finished job 2.
+3 of 7 steps (43%) done
+
+[Wed Jun 26 17:54:30 2019]
+rule journalDisciplineMatch:
+    input: output/OpenSci3.csv, input/OpenSci3Journal.csv
+    output: output/OpenSci3Discipline.csv
+    jobid: 3
+
+[Wed Jun 26 17:54:34 2019]
+Finished job 3.
+4 of 7 steps (57%) done
+
+[Wed Jun 26 17:54:34 2019]
+rule genderAnalysis:
+    input: output/OpenSci3Discipline.csv
+    output: figures/TimeHist.pdf, figures/TeamSizeHist.pdf, figures/TeamSizeHist_fem.pdf, figures/TimeTrends_fem.pdf, figures/PredictedProbs_multiauthor_spline2.pdf, figures/FoS_appearances.pdf, figures/PredictedProbs_multiauthor_spline2_FOS.pdf
+    jobid: 4
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in line 44 of /home/jovyan/ReproducibilityDemo/code-data/Snakefile:
+Missing files after 5 seconds:
+figures/TeamSizeHist_fem.pdf
+figures/PredictedProbs_multiauthor_spline2.pdf
+figures/PredictedProbs_multiauthor_spline2_FOS.pdf
+This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
+Removing output files of failed job genderAnalysis since they might be corrupted:
+figures/TimeHist.pdf, figures/TeamSizeHist.pdf, figures/TimeTrends_fem.pdf, figures/FoS_appearances.pdf
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jovyan/ReproducibilityDemo/code-data/.snakemake/log/2019-06-26T175354.736133.snakemake.log
