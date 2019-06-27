@@ -1,3 +1,7 @@
+install.packages("checkpoint")
+library("checkpoint")
+checkpoint("2019-04-23")
+install.packages("devtools")
 install.packages("tidyverse")
 install.packages("widyr")
 install.packages("igraph")
