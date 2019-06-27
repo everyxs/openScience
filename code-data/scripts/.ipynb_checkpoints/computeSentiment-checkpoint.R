@@ -1,4 +1,6 @@
 # LOAD PACKAGES
+library("checkpoint")
+checkpoint("2019-04-23")
 library(SentimentAnalysis)
 library(ggplot2)
 library(dplyr)
@@ -59,7 +61,7 @@ constructs <- levels(as.factor(custom$IndivConstruct))
 length(constructs) #15
 
 # extract the right data (the word list)
-data <- read.csv("OpenSci3Discipline.csv", header = T, stringsAsFactors = F) 
+data <- read.csv("output/OpenSci3Discipline.csv", header = T, stringsAsFactors = F) 
 full_custom_results <- data.frame(PaperId = data$PaperId)
 for (construct_i in constructs){
   X <- custom %>% 

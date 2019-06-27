@@ -1,3 +1,5 @@
+library("checkpoint")
+checkpoint("2019-04-23")
 library(ggplot2)
 library(dplyr)
 library(gridExtra)

@@ -11,7 +11,8 @@
 #     language: R
 #     name: ir
 # ---
-
+library("checkpoint")
+checkpoint("2019-04-23")
 library(dplyr)
 library(tidyr)
 #install.packages('gender',lib=.libPaths()[3])

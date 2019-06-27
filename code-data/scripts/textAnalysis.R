@@ -1,3 +1,5 @@
+library("checkpoint")
+checkpoint("2019-04-23")
 library(ggplot2)
 library(dplyr)
 # library(gridExtra)
@@ -110,7 +112,7 @@ dev.off()
 ### CUSTOM DICTIONARIES
 #########################################################
 
-data <- read.csv('abstracts_scored_custom.csv', stringsAsFactors = FALSE)
+data <- read.csv('output/abstracts_scored_custom.csv', stringsAsFactors = FALSE)
 
 #make sure variable names match constructs
 dictionary <- read.csv('input/Lancet Dictionaries.csv', stringsAsFactors = FALSE)
