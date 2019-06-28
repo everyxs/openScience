@@ -12,6 +12,6 @@ pip install graphviz
 apt-get install python-dev graphviz libgraphviz-dev pkg-config
 pip install pygraphviz
 
-cd code-data
-snakemake -F
-snakemake --forceall --dag | dot -Tpng > workflow.png
+# cd code-data
+# snakemake -F
+# snakemake --forceall --dag | dot -Tpng > workflow.png
