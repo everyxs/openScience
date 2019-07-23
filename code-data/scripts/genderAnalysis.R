@@ -66,8 +66,8 @@ abline(v=15, col='red')
 
 #sample size for regression
 dat %>% filter(authorCount > 1, authorCount <= 12, !is.na(femaleLead)) %>% group_by(Tag) %>% summarise(count=n())
-# 1 OpenScience       461
-# 2 Reproducibility   970
+# 1 OpenScience       454
+# 2 Reproducibility   955
 
 #number of papers with more than 12 authors (excluded from regression)
 dat %>% filter(authorCount > 12, !is.na(femaleLead)) %>% group_by(Tag) %>% summarise(count=n())
@@ -113,7 +113,7 @@ pnorm(t_RR) #4.888296e-13
 
 #Exact test
 pbinom(n_fem_OS, size = n_OS, prob = 0.5) #3.012727e-07
-pbinom(n_fem_RR, size = n_RR, prob = 0.5) #3.286681e-13
+pbinom(n_fem_RR, size = n_RR, prob = 0.5) #2.279883e-13
 
 #H0: p_OS = p_RR
 pct_fem = (n_fem_OS+n_fem_RR)/(n_OS+n_RR)
@@ -301,7 +301,7 @@ dat.pred3a$LB_p <- logodds_to_prob(dat.pred3a$LB)
 dat.pred3a$UB_p <- logodds_to_prob(dat.pred3a$UB)
 
 #average team size?
-dat3 %>% summarize(avg_team_size = mean(authorCount)) #3.999295
+dat3 %>% summarize(avg_team_size = mean(authorCount)) #4.798661
 
 dat.pred3a.journals2017 <- filter(dat.pred3a, !Conference, Year2==0) #fix year and document type, vary team size
 dat.pred3a.journals4auth <- filter(dat.pred3a, !Conference, authorCount == 4) #fix team size and document type, vary year of publication
