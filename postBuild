@@ -10,7 +10,7 @@ jupyter nbextensions_configurator enable --user
 conda install -c conda-forge graphviz xorg-libxrender xorg-libxpm
 pip install graphviz
 apt-get install python-dev graphviz libgraphviz-dev pkg-config
-pip install pygraphviz
+# pip install pygraphviz
 
 # cd code-data
 # snakemake -F
