@@ -1,6 +1,4 @@
 Click [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/everyxs/openScience/d814754a597aa06a1a3d53b29c57a48a80ed7fea?urlpath=lab/tree/code-data/genderAnalysis.ipynb) for a reproducible container environment. Follow our step-by-step instruciton at [the wiki page.](https://github.com/iuni-cadre/ReproducibilityDemo/wiki/A-demo-of-reproducibility)
-python 3.6
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/everyxs/openScience.git/46cf61e7ddbe6e6406d466e904c9d1b4023ab8b7?urlpath=lab/tree/code-data/genderAnalysis.ipynb)
 
 ### Open science and communal culture promote women's participation, diversity and discovery.
 
