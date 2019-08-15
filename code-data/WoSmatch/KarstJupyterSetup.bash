@@ -2,6 +2,8 @@ ssh yan30@karst.uits.iu.edu
 
 qstat
 qsub spark_test.pbs
+cd /N/dc2/projects/IUNI_MSAcademic
+
 
 module load java #load sun jdk10 for hadoop
 module load hadoop
