@@ -1,5 +1,4 @@
 Click [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/everyxs/openScience/d814754a597aa06a1a3d53b29c57a48a80ed7fea?urlpath=lab/tree/code-data/genderAnalysis.ipynb) for a reproducible container environment. Follow our step-by-step instruciton at [the wiki page.](https://github.com/iuni-cadre/ReproducibilityDemo/wiki/A-demo-of-reproducibility)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/everyxs/openScience.git/f19db880d7dbc03153b9417b408ab94712807f0e)
 ### Emerging Cultures and Gendered Spaces in the Movement to Improve Science
 
 Author block 1:
