@@ -18,7 +18,7 @@ pip install --user Toree
 export PATH=~/.local/bin:$PATH
 jupyter toree install --spark_home=$SPARK_HOME --user
 jupyter kernelspec list
-jupyter toree install --replace --spark_home=$SPARK_HOME --kernel_name="Spark" --spark_opts="--packages com.databricks:spark-xml_2.11:0.5.0 --master spark://c240.karst.uits.iu.edu:7077 --driver-memory 8G --executor-memory 15G --executor-cores 4 --conf spark.driver.maxResultSize=8g" --user
+jupyter toree install --replace --spark_home=$SPARK_HOME --kernel_name="Spark" --spark_opts="--packages com.databricks:spark-xml_2.11:0.5.0 --master spark://c240.karst.uits.iu.edu:7077 --driver-memory 8G --executor-memory 15G --executor-cores 4 --conf spark.driver.maxResultSize=8g --conf spark.executor.extraJavaOptions=-Dfile.encoding=UTF-8 --conf spark.driver.extraJavaOptions -Dfile.encoding=UTF-8" --user
 jupyter notebook --no-browser --port=8000
 -----------To check | kill ports, use
 lsof -ti:8000 | xargs kill -9
