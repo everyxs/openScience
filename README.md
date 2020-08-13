@@ -2,50 +2,50 @@ Click [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/g
 
 ### Open science, communal culture, and women’s participation in the movement to improve science
 
-Mary C. Murphy <sup>a,1,2</sup>, Amanda Mejia a,1, Jorge Mejia a,1, Xiaoran Yan a,1, Sapna Cheryan b, Nilanjana Dasgupta c, Mesmin Destin d, Stephanie A. Fryberg e, Julie A. Garcia f, Elizabeth L. Haines g, Judith M. Harackiewicz h, Alison Ledgerwood i, Corinne A. Moss-Racusin j, Lora E. Park k, Sylvia P. Perry d, Kate A. Ratliff l, Aneeta Rattan m, Diana T. Sanchez n, Krishna Savani o, Denise Sekaquaptewa e, Jessi L. Smith p, Valerie Jones Taylor q, Dustin B. Thoman r, Daryl A. Wout s, Patricia L. Mabry t,3, Susanne Ressl a,u,3, Amanda Diekman a,3, and Franco Pestilli a,u,3
+Mary C. Murphy <sup>a,1,2</sup>, Amanda Mejia <sup>a,1</sup>, Jorge Mejia <sup>a,1</sup>, Xiaoran Yan <sup>a,1</sup>, Sapna Cheryan <sup>b</sup>, Nilanjana Dasgupta <sup>c</sup>, Mesmin Destin <sup>d</sup>, Stephanie A. Fryberg <sup>e</sup>, Julie A. Garcia <sup>f</sup>, Elizabeth L. Haines <sup>g</sup>, Judith M. Harackiewicz <sup>h</sup>, Alison Ledgerwood <sup>i</sup>, Corinne A. Moss-Racusin <sup>j</sup>, Lora E. Park <sup>k<sup>, Sylvia P. Perry <sup>d</sup>, Kate A. Ratliff <sup>l</sup>, Aneeta Rattan <sup>m</sup>, Diana T. Sanchez <sup>n</sup>, Krishna Savani <sup>o</sup>, Denise Sekaquaptewa <sup>e</sup>, Jessi L. Smith <sup>p</sup>, Valerie Jones Taylor <sup>q</sup>, Dustin B. Thoman <sup>r</sup>, Daryl A. Wout <sup>s</sup>, Patricia L. Mabry <sup>t,3</sup>, Susanne Ressl <sup>a,u,3</sup>, Amanda Diekman <sup>a,3</sup>, and Franco Pestilli <sup>a,u,3</sup>
 
 #### Authors affiliations
 <sup>a</sup> Indiana University Bloomington
 
-b University of Washington; 
+<sup>b</sup> University of Washington; 
 
-c University of Massachusetts Amherst; 
+<sup>c</sup> University of Massachusetts Amherst; 
 
-d Northwestern University; 
+<sup>d</sup> Northwestern University; 
 
-e University of Michigan-Ann Arbor; 
+<sup>e</sup> University of Michigan-Ann Arbor; 
 
-f California Polytechnic State University; 
+<sup>f</sup> California Polytechnic State University; 
 
-g William Paterson University; 
+<sup>g</sup> William Paterson University; 
 
-h University of Wisconsin-Madison; 
+<sup>h</sup> University of Wisconsin-Madison; 
 
-i University of California, Davis; 
+<sup>i</sup> University of California, Davis; 
 
-j Skidmore College; 
+<sup>j</sup> Skidmore College; 
 
-k University at Buffalo, State University of New York; 
+<sup>k</sup> University at Buffalo, State University of New York; 
 
-l University of Florida; 
+<sup>l</sup> University of Florida; 
 
-m London Business School; 
+<sup>m</sup> London Business School; 
 
-n Rutgers, The State University of New Jersey; 
+<sup>n</sup> Rutgers, The State University of New Jersey; 
 
-o Nanyang Technological University; 
+<sup>o</sup> Nanyang Technological University; 
 
-p University of Colorado Colorado Springs; 
+<sup>p</sup> University of Colorado Colorado Springs; 
 
-q Lehigh University; 
+<sup>q</sup> Lehigh University; 
 
-r San Diego State University; 
+<sup>r</sup> San Diego State University; 
 
-s John Jay College of Criminal Justice; 
+<sup>s</sup> John Jay College of Criminal Justice; 
 
-t HealthPartners Institute; 
+<sup>t</sup> HealthPartners Institute; 
 
-u The University of Texas at Austin
+<sup>u</sup> The University of Texas at Austin
 
 #### Authors' contributions
 
