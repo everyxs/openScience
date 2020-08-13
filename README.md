@@ -53,4 +53,4 @@ Mary C. Murphy <sup>a,1,2</sup>, Amanda Mejia <sup>a,1</sup>, Jorge Mejia <sup>a
 
 <sup>2</sup> To whom correspondence may be addressed. Email: mcmpsych@indiana.edu. 
 
-<sup>3<sup> P.L.M., S.R., A.D., and F.P. contributed equally to this work.
+<sup>3</sup> P.L.M., S.R., A.D., and F.P. contributed equally to this work.
