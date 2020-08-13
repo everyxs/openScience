@@ -4,6 +4,7 @@ Click [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/g
 
 Mary C. Murphy a,1,2, Amanda Mejia a,1, Jorge Mejia a,1, Xiaoran Yan a,1, Sapna Cheryan b, Nilanjana Dasgupta c, Mesmin Destin d, Stephanie A. Fryberg e, Julie A. Garcia f, Elizabeth L. Haines g, Judith M. Harackiewicz h, Alison Ledgerwood i, Corinne A. Moss-Racusin j, Lora E. Park k, Sylvia P. Perry d, Kate A. Ratliff l, Aneeta Rattan m, Diana T. Sanchez n, Krishna Savani o, Denise Sekaquaptewa e, Jessi L. Smith p, Valerie Jones Taylor q, Dustin B. Thoman r, Daryl A. Wout s, Patricia L. Mabry t,3, Susanne Ressl a,u,3, Amanda Diekman a,3, and Franco Pestilli a,u,3
 
+#### Authors affiliations
 a Indiana University Bloomington
 
 b University of Washington; 
@@ -45,6 +46,8 @@ s John Jay College of Criminal Justice;
 t HealthPartners Institute; 
 
 u The University of Texas at Austin
+
+#### Authors' contributions
 
 1 M.C.M., A.M., J.M., and X.Y. contributed equally to this work.
 
