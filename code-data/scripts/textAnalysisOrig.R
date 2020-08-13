@@ -9,7 +9,7 @@ library(textcat)
 # library(gamlss)
 # library(gamlss.dist) # gamlss.dist package, contains inflated
 
-#setwd('~/Box/RESEARCH/WomenInScience/Analysis/')
+#setwd('~/Box/RESEARCH/WomenInScience/newdata/')
 
 #########################################################
 #########################################################
@@ -24,22 +24,25 @@ library(textcat)
 
 data <- read.csv('abstracts_scored.csv', stringsAsFactors = FALSE)
 
-### No missing abstracts
+### Exclude missing abstracts
 nrow(data) #2926
-sum(data$WordCount==0) #1020
-sum(is.na(data$IndexedAbstract)) #0
-
-data <- dplyr::filter(data, WordCount>0)
+  sum(data$WordCount==0) #1020
+sum(is.na(data$IndexedAbstract)) #1020
+table(data$Tag, is.na(data$IndexedAbstract))
+#                 FALSE TRUE
+# OpenScience       674  204
+# Reproducibility  1232  815
+data <- filter(data, WordCount>0)
 
 #Exclude non-English titles
 data$Language <- textcat(as.character(data$Title))
 table(data$Language)
-# afrikaans       albanian         breton        catalan         danish          dutch        english      esperanto         french
-# 2              1              1             21              9              2           1764              1              6
-# frisian         german     indonesian        italian          latin           manx middle_frisian     portuguese       romanian
-# 3             28              2              1              7              2              4              9              5
-# rumantsch          scots   scots_gaelic   slovak-ascii        spanish        swedish
-# 4             14              1              2             13              4
+# afrikaans       albanian         breton        catalan         danish          dutch        english      esperanto         french 
+# 2              1              1             21              9              2           1764              1              6 
+# frisian         german     indonesian        italian          latin           manx middle_frisian     portuguese       romanian 
+# 3             28              2              1              7              2              4              9              5 
+# rumantsch          scots   scots_gaelic   slovak-ascii        spanish        swedish 
+# 4             14              1              2             13              4 
 addmargins(table(data$Tag, data$Language=='english'))
 #                 FALSE TRUE  Sum
 # OpenScience        79  595  674
@@ -57,7 +60,7 @@ hist(data$nchar, xlim=c(0,500), breaks=seq(0,7300,10)) #no small weird values
 
 pdf('figures/Postivity_FieldFemale.pdf', width=5, height=4)
 data$femaleLead <- (data$X1st==1) | (data$last==1)
-ggplot(filter(data, !is.na(femaleLead)), aes(x=femaleLead, y=PositivityQDAP, fill=femaleLead)) +
+ggplot(filter(data, !is.na(femaleLead)), aes(x=femaleLead, y=PositivityQDAP, fill=femaleLead)) + 
   geom_boxplot() + facet_grid(. ~ Tag) + scale_fill_manual(values=c('lightblue','pink')) + guides(fill=FALSE)
 dev.off()
 
@@ -96,9 +99,9 @@ dev.off()
 ### Team Size
 
 pdf('figures/SentimentPositivity_TeamSize.pdf', width=10, height=5)
-ggplot(data, aes(x=authorCount, y=SentimentQDAP, color=Tag, group=interaction(authorCount,Tag))) +
+ggplot(data, aes(x=authorCount, y=SentimentQDAP, color=Tag, group=interaction(authorCount,Tag))) + 
   geom_boxplot() + geom_smooth() + xlim(0,10) + theme(legend.position='bottom')
-ggplot(data, aes(x=authorCount, y=PositivityQDAP, color=Tag, group=interaction(authorCount,Tag))) +
+ggplot(data, aes(x=authorCount, y=PositivityQDAP, color=Tag, group=interaction(authorCount,Tag))) + 
   geom_boxplot() + geom_smooth() + xlim(0,10) + theme(legend.position='bottom')
 dev.off()
 
@@ -114,7 +117,7 @@ data <- read.csv('output/abstracts_scored_custom.csv', stringsAsFactors = FALSE)
 #make sure variable names match constructs
 dictionary <- read.csv('input/Lancet Dictionaries.csv', stringsAsFactors = FALSE)
 dictionary <- dictionary[,1:2]
-constructs <- levels(as.factor(dictionary$IndivConstruct))
+constructs <- levels(as.factor(dictionary$IndivConstruct)) 
 
 neaten <- function(x){
   x <- gsub(pattern = " ", replacement = "", x) #remove spaces
@@ -138,12 +141,12 @@ data <- filter(data, (IndexedAbstract != ''))
 
 data$Language <- textcat(as.character(data$Title))
 table(data$Language)
-# afrikaans       albanian         breton        catalan         danish          dutch        english      esperanto
-# 2              1              1             21              9              2           1764              1
-# french        frisian         german     indonesian        italian          latin           manx middle_frisian
-# 6              3             28              2              1              7              2              4
-# portuguese       romanian      rumantsch          scots   scots_gaelic   slovak-ascii        spanish        swedish
-# 9              5              4             14              1              2             13              4
+# afrikaans       albanian         breton        catalan         danish          dutch        english      esperanto 
+# 2              1              1             21              9              2           1764              1 
+# french        frisian         german     indonesian        italian          latin           manx middle_frisian 
+# 6              3             28              2              1              7              2              4 
+# portuguese       romanian      rumantsch          scots   scots_gaelic   slovak-ascii        spanish        swedish 
+# 9              5              4             14              1              2             13              4 
 table(data$Tag, data$Language!='english') #how many excluded/included?
 #                 FALSE TRUE
 # OpenScience       595   79
@@ -152,8 +155,8 @@ data <- filter(data, Language=='english')
 
 nrow(data) #1764
 table(data$Tag)
-# OpenScience Reproducibility
-# 595            1169
+# OpenScience Reproducibility 
+# 595            1169 
 
 ### Compute composite scores
 TeamScienceConstructs <- neaten(unique(dictionary$IndivConstruct[dictionary$PotentialComposite=='Team Science']))
@@ -173,7 +176,7 @@ for(c in constructs2){
   data_c <- data[data[,c] > 0,] #only include observations with at least one instance of a construct word
   names(data_c)[names(data_c)==c] <- 'var'
   title_c <- paste0(c, ' (n = ',nrow(data_c),')')
-  print(ggplot(data_c, aes(x=Tag, y=var, group=Tag)) + geom_boxplot() + ylab(c) + ggtitle(title_c))
+  print(ggplot(data_c, aes(x=Tag, y=var, group=Tag)) + geom_boxplot() + ylab(c) + ggtitle(title_c)) 
 }
 dev.off()
 
@@ -184,8 +187,9 @@ data_RR <- filter(data, Tag=='Reproducibility')
 
 pdf('figures/ProSocialHist.pdf', width=6, height=5)
 angle <- c(45,-45)
-hist(data_RR$ProsocialMotives, border='gray', main='Distribution of Pro-Social Motives Construct Score', xlab='Pro-Social Motives Construct Score', breaks=seq(0,0.2,0.01), freq=FALSE)
-hist(data_OS$ProsocialMotives, border='black', add=TRUE, breaks=seq(0,0.2,0.01), freq=FALSE)
+hist(data_RR$ProsocialMotives, border='gray', main='Distribution of Pro-Social Motives Construct Score', xlab='Pro-Social Motives Construct Score', breaks=seq(0,0.2,0.01))
+
+hist(data_OS$ProsocialMotives, border='black', add=TRUE, breaks=seq(0,0.2,0.01))
 legend('topright',legend=c('Open Science','Reproducibility'),fill='white',border=c('black','gray'))
 dev.off()
 
@@ -245,140 +249,4 @@ pct_RR <- n1_RR/n_RR #44%
 pct = (n1_OS+n1_RR)/(n_OS+n_RR)
 t_compare <- (pct_OS - pct_RR)/sqrt(pct*(1-pct)*(1/n_OS + 1/n_RR))
 2*pnorm(t_compare, lower.tail = FALSE) #2.737252e-38
-
-
-#########################################################
-# Revisions Feb 2020: Look at sentiment analysis by FoS
-#########################################################
-
-load(file='PaperID_with_topFOS.Rdata') #PaperID_with_topFOS
-
-data_with_FoS <- left_join(data, PaperID_with_topFOS)
-topFOS3 <- names(PaperID_with_topFOS)[-1]
-
-nrow(data_with_FoS) #1764
-table(data_with_FoS$Tag)
-
-
-###################################################
-# Make boxplots of prosocial by field
-
-tmp_dat <- data.frame()
-for(fos in topFOS3){
-  col_fos <- which(names(data_with_FoS) == fos) #which column of dat3a corrsponds to current FoS
-  inds_fos <- (data_with_FoS[,col_fos]==TRUE) #rows where current FoS is TRUE
-  data_fos <- data_with_FoS[inds_fos,]
-  tmp_dat_fos <- data.frame(FoS=fos, ProSocial=data_fos$ProsocialMotives)
-  tmp_dat <- rbind(tmp_dat, tmp_dat_fos)
-}
-
-logit <- function(p){
-  return(log(p/(1-p)))
-}
-
-pdf('figures/ProSocial_byFoS.pdf', width=9, height=5)
-ggplot(tmp_dat, aes(x=FoS, y=ProSocial, color=FoS, group=FoS)) + geom_boxplot() + 
-  theme_few() + scale_color_brewer(palette='Paired') + theme(legend.position='none')
-ggplot(tmp_dat, aes(x=FoS, y=logit(ProSocial), color=FoS, group=FoS)) + geom_boxplot() + 
-  theme_few() + scale_color_brewer(palette='Paired') + theme(legend.position='none')
-dev.off()
-
-# library(ggpubr)
-# compare_means(ProSocial ~ FoS,  data = tmp_dat, ref.group = ".all.",
-#               method = "t.test")
-# 
-# # Change method to anova
-# ggboxplot(tmp_dat, x = "FoS", y = "ProSocial",
-#           color = "FoS", palette = "jco") +
-#   geom_hline(yintercept = mean(tmp_dat$ProSocial, na.rm=T), linetype = 2) + # Add horizontal line at base mean
-#   yscale("logit") +
-#   stat_compare_means(method = "anova", label.y = .10) +      # Add global p-value
-#   stat_compare_means(label = "p.signif", method = "t.test",
-#                      ref.group = ".all.") +                  # Pairwise comparison against all
-#   theme(legend.position='none')
-
-FoS_noOS <- c('statistics','analyticalchemistry')
-
-###################################################
-# PERMUTATION TEST OF PROSOCIAL BY FIELD OF STUDY
-
-pvals_df <- data.frame(FOS=topFOS3, mean_diff=NA, med_diff=NA, pval_mean=NA, pval_med=NA)
-
-M <- 10000
-for(fos in topFOS3){
-  
-  if(!(fos %in% FoS_noOS)){
-    
-    print(fos)
-    ind <- which(pvals_df$FOS==fos)
-    
-    #Fit model for one FoS
-    col_fos <- which(names(data_with_FoS) == fos) #which column of dat3a corrsponds to current FoS
-    inds_fos <- which(data_with_FoS[,col_fos]==TRUE) #rows where current FoS is TRUE
-    data_fos <- data_with_FoS[inds_fos,]
-    data_fos_OS <- filter(data_fos, Tag=='OpenScience')
-    data_fos_RR <- filter(data_fos, Tag=='Reproducibility')
-    
-    # Test for Differences in Pro-Social Construct Score
-    mean_diff_fos <- mean(data_fos_OS$ProsocialMotives) - mean(data_fos_RR$ProsocialMotives)
-    med_diff_fos <- median(data_fos_OS$ProsocialMotives) - median(data_fos_RR$ProsocialMotives) 
-    pvals_df$mean_diff[ind] <- mean_diff_fos
-    pvals_df$med_diff[ind] <- med_diff_fos
-    
-    #perform permutation test
-    labels_true <- data_fos$Tag
-    n <- length(data_fos$Tag)
-    mean_diff_null <- rep(NA, M) #construct the null distribution for the difference in means
-    med_diff_null <- rep(NA, M) #construct the null distribution for the difference in medians
-    print('sampling')
-    for(m in 1:M){
-      #print(m)
-      labels_m <- sample(labels_true, n, replace=FALSE)
-      data_OS_m <- data_fos[labels_m=='OpenScience',]
-      data_RR_m <- data_fos[labels_m=='Reproducibility',]
-      mean_diff_null[m] <- mean(data_OS_m$ProsocialMotives) - mean(data_RR_m$ProsocialMotives)
-      med_diff_null[m] <- median(data_OS_m$ProsocialMotives) - median(data_RR_m$ProsocialMotives)
-    }
-
-    #p-value (percent of times the permutation-based mean/median difference exceeds the observed one)
-    (pval_mean <- mean(abs(mean_diff_null) > abs(mean_diff_fos)))
-    (pval_med <- mean(abs(med_diff_null) > abs(med_diff_fos)))
-    pvals_df$pval_mean[ind] <- pval_mean
-    pvals_df$pval_med[ind] <- pval_med
-    
-  }
-}
-
-pvals_df[,2:3] <- round(pvals_df[,2:3], 3)
-pvals_df
-
-###################################################
-# PROSOCIAL HISTOGRAM BY FIELD OF STUDY
-
-pdf('figures/ProSocialHist_FoS.pdf', width=10, height=8)
-angle <- c(45,-45)
-par(mfrow=c(2,3))
-for(fos in topFOS3){
-  
-  if(!(fos %in% FoS_noOS)){
-    print(fos)
-    ind <- which(pvals_df$FOS==fos)
-    
-    #Fit model for one FoS
-    col_fos <- which(names(data_with_FoS) == fos) #which column of dat3a corrsponds to current FoS
-    inds_fos <- (data_with_FoS[,col_fos]==TRUE) #rows where current FoS is TRUE
-    data_fos <- data_with_FoS[inds_fos,]
-    data_fos_OS <- filter(data_fos, Tag=='OpenScience')
-    data_fos_RR <- filter(data_fos, Tag=='Reproducibility')
-    
-    pval_mean <- pvals_df$pval_mean[ind]
-    pval_med <- pvals_df$pval_med[ind]
-    title <- bquote(atop(.(fos),paste('p'['mean']*' = ',.(pval_mean),', p'['med']*' = ',.(pval_med))))
-    hist1 <- hist(data_fos_RR$ProsocialMotives, border='gray', main=title, xlab='Pro-Social Motives Construct Score', breaks=seq(0,0.2,0.01), freq=FALSE)
-    hist2 <- hist(data_fos_OS$ProsocialMotives, border='black', add=TRUE, breaks=seq(0,0.2,0.01), freq=FALSE)
-    legend('topright',legend=c('Open Science','Reproducibility'),fill='white',border=c('black','gray'))
-  }
-}
-dev.off()
-
 

@@ -47,7 +47,7 @@ rule genderAnalysis:
         rules.journalDisciplineMatch.output
     output:
         "figures/TimeHist.pdf", "figures/TeamSizeHist.pdf", "figures/TeamSizeHist_fem.pdf", "figures/TimeTrends_fem.pdf", "figures/PredictedProbs_multiauthor_spline2.pdf", 
-        "figures/FoS_appearances.pdf", "figures/spline_estimates.pdf", "figures/PredictedProbs_multiauthor_spline2_FOS.pdf"
+        "figures/FoS_appearances.pdf", "figures/spline_estimates.pdf", "figures/PredictedProbs_multiauthor_spline2_FOS.pdf", "PaperID_with_topFOS.Rdata"
     script:
         "scripts/genderAnalysis.R"           
         
@@ -69,7 +69,7 @@ rule computeSentiment:
         
 rule textAnalysis:
     input:
-        rules.computeSentiment.output, "input/Lancet Dictionaries.csv"
+        rules.computeSentiment.output, "input/Lancet Dictionaries.csv", "PaperID_with_topFOS.Rdata"
     output:
         "figures/ProSocialHist.pdf"
     script:

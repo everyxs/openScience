@@ -1,12 +1,12 @@
 library("checkpoint")
 checkpoint("2019-04-23")
 library(ggplot2)
-library(ggthemes)
+
 library(dplyr)
 library(gridExtra)
 library(mgcv) #gam
 
-#setwd('~/Box/RESEARCH/WomenInScience/Analysis/')
+#setwd('~/Box/RESEARCH/WomenInScience/newdata/')
 dat <- read.csv('output/OpenSci3Discipline.csv', stringsAsFactors = FALSE)
 nrow(dat) #2926
 
@@ -110,7 +110,7 @@ pct_fem_RR <- n_fem_RR/n_RR #28%
 t_OS <- (pct_fem_OS-0.5)/sqrt(0.5*0.5/n_OS)
 t_RR <- (pct_fem_RR-0.5)/sqrt(0.5*0.5/n_RR)
 pnorm(t_OS) #2.694587e-07
-pnorm(t_RR) #3.453812e-13
+pnorm(t_RR) #4.888296e-13
 
 #Exact test
 pbinom(n_fem_OS, size = n_OS, prob = 0.5) #3.012727e-07
@@ -326,14 +326,14 @@ grid.arrange(p1, p2, nrow=1)
 dev.off()
 
 #Team Size
-pdf('PredictedProbs_multiauthor_teamsize_spline.pdf', width=6, height=5)
-print(p1)
-dev.off()
+#pdf('PredictedProbs_multiauthor_teamsize_spline.pdf', width=6, height=5)
+#print(p1)
+#dev.off()
 
 #Time
-pdf('PredictedProbs_multiauthor_year_spline.pdf', width=6, height=5)
-print(p2)
-dev.off()
+#pdf('PredictedProbs_multiauthor_year_spline.pdf', width=6, height=5)
+#print(p2)
+#dev.off()
 
 ##### Model 1B: Control for Field of Study ######
 
@@ -366,7 +366,7 @@ sum(table(FoS)) #10335
 #create indicator columns for each of the FOSs
 dat3a$anyFOS <- 0 #for each paper, determine if any of the FOSs on the short-list are listed 
 for(i in 1:length(topFOS)){
-  #print(i)
+  print(i)
   FOS_i = topFOS[i]
   dat3a$newcol = grepl(pattern = FOS_i, x = dat3a$FoSNames, fixed = F)
   dat3a$anyFOS = dat3a$anyFOS + dat3a$newcol
@@ -518,178 +518,4 @@ dev.off()
 # dat.pred3b$LB_p <- logodds_to_prob(dat.pred3b$LB)
 # dat.pred3b$UB_p <- logodds_to_prob(dat.pred3b$UB)
 # 
-
-#########################################################
-# Revisions Feb 2020: Look at women's representation by team size and time by FoS
-#########################################################
-
-# Look at overlap between different fields --> merge if helpful
-
-library(corrplot)
-tmp <- dat3a[,names(dat3a) %in% topFOS2]
-#names(tmp) <- paste0('F',1:ncol(tmp))
-cor_FoS <- cor(tmp)
-corrplot(cor_FoS)
-
-#moderate-high overlap: 
-#biology + bioinformatics
-#software + computer science + AI
-#knowledge management + management science
-
-#CS = computer science, artificial intelligence and software
-#management = management science + knowledge management
-#bio = biology and bioinformatics
-combine1 <- c('computerscience','artificialintelligence','software')
-combine2 <- c('managementscience','knowledgemanagement')
-combine3 <- c('biology','bioinformatics')
-new <- c('CS','management','bio')
-topFOS3 <- c(new, setdiff(topFOS2, c(combine1,combine2,combine3)))
-
-dat3a$CS <- dat3a$computerscience | dat3a$artificialintelligence | dat3a$software
-dat3a$management <- dat3a$managementscience | dat3a$knowledgemanagement
-dat3a$bio <- dat3a$bioinformatics | dat3a$biology
-
-colSums(dat3a[,topFOS3])
-#                 CS          management                 bio            medicine analyticalchemistry         engineering          psychology 
-#351                 122                 172                 695                  57                 160                  99 
-#statistics 
-#123 
-
-###################################################
-# Make boxplots of team size by field
-
-tmp_dat <- data.frame()
-for(fos in topFOS3){
-  col_fos <- which(names(dat3a) == fos) #which column of dat3a corrsponds to current FoS
-  inds_fos <- (dat3a[,col_fos]==TRUE) #rows where current FoS is TRUE
-  dat3a_fos <- dat3a[inds_fos,]
-  tmp_dat_fos <- data.frame(FoS=fos, TeamSize=dat3a_fos$authorCount, Year=dat3a_fos$Year)
-  tmp_dat <- rbind(tmp_dat, tmp_dat_fos)
-}
-
-pdf('figures/TeamSize_byFoS.pdf', width=9, height=5)
-ggplot(tmp_dat, aes(x=FoS, y=TeamSize, color=FoS, group=FoS)) + geom_boxplot() + 
-  theme_few() + scale_color_brewer(palette='Paired') + theme(legend.position='none')
-dev.off()
-
-#based on the above plot, there are some differences in team size across disciplines.
-#biology teams tend to be larger, management teams tend to be smaller
-
-###################################################
-# Stratify the model by discipline
-
-#first, check that there is representation of RR and OS within each FoS:
-samplesize_FoS <- matrix(0, nrow=length(topFOS3), ncol=2)
-rownames(samplesize_FoS) <- topFOS3
-colnames(samplesize_FoS) <- c('OpenScience','Reproducibility')
-for(fos in topFOS3){
-  col_fos <- which(names(dat3a) == fos) #which column of dat3a corrsponds to current FoS
-  inds_fos <- (dat3a[,col_fos]==TRUE) #rows where current FoS is TRUE
-  dat3a_fos <- dat3a[inds_fos,]
-  samplesize_FoS[which(topFOS3==fos),1] <- sum(dat3a_fos$Tag=='OpenScience')
-  samplesize_FoS[which(topFOS3==fos),2] <- sum(dat3a_fos$Tag=='Reproducibility')
-}
-#exclude: statistics, analyticalchemistry,
-
-#                     OpenScience Reproducibility
-# CS                          171             180
-# management                   99              23
-# bio                          81              91
-# medicine                    151             544
-# analyticalchemistry           0              57
-# engineering                  52             108
-# psychology                   18              81
-# statistics                    3             120
-
-FoS_noOS <- c('statistics','analyticalchemistry')
-FoS_smallOS <- 'psychology' #small sample size in OS (n=18)
-FoS_smallRR <- 'management' #small sample size in RR (n=23)
-
-dat.pred3_fos <- expand.grid(FoS=topFOS3,
-                             Tag=c('Reproducibility','OpenScience'),
-                            Conference = c(FALSE,TRUE),
-                            Year2 = (2010:2017) - 2017,
-                            authorCount_m2 = (2:12)-2,
-                            predict=NA, SE=NA)
-dat.pred3_fos$authorCount <- dat.pred3_fos$authorCount_m2 + 2
-dat.pred3_fos$RR <- (dat.pred3_fos$Tag=='Reproducibility')
-dat.pred3_fos$RR_AuthorCount <- (dat.pred3_fos$RR)*(dat.pred3_fos$authorCount_m2)
-
-for(fos in topFOS3){
-  
-  #Fit model for one FoS
-  col_fos <- which(names(dat3a) == fos) #which column of dat3a corrsponds to current FoS
-  inds_fos <- (dat3a[,col_fos]==TRUE) #rows where current FoS is TRUE
-  dat3a_fos <- dat3a[inds_fos,]
-  
-  if(!(fos %in% FoS_noOS)) fit3_fos <- gam(formula = femaleLead*1 ~ RR*Year2 + s(authorCount_m2, k=4) + s(RR_AuthorCount, k=4) + Conference, family = 'binomial', data=dat3a_fos)
-  if(fos %in% FoS_noOS) {
-    dat3a_fos <- dplyr::filter(dat3a_fos, RR==TRUE)
-    fit3_fos <- gam(formula = femaleLead*1 ~ Year2 + s(authorCount_m2, k=4) + Conference, family = 'binomial', data=dat3a_fos)
-  }
-  
-  #Obtain predictions
-  rows_pred_fos <- which(dat.pred3_fos$FoS==fos)
-  pred3_fos <- predict(fit3_fos, newdata=dat.pred3_fos[rows_pred_fos,], type = "link", se.fit = TRUE) #on log-odds scale
-  dat.pred3_fos$predict[rows_pred_fos] <-pred3_fos$fit
-  dat.pred3_fos$SE[rows_pred_fos] <- pred3_fos$se.fit
-  
-}
-
-#remove OpenScience predictions for fields with no OS papers
-dat.pred3_fos <- dplyr::filter(dat.pred3_fos, !((FoS %in% FoS_noOS) & (Tag=='OpenScience')))
-
-#flag small sample sizes
-dat.pred3_fos$smalln <- FALSE
-dat.pred3_fos$smalln[(dat.pred3_fos$FoS %in% FoS_smallOS) & dat.pred3_fos$Tag=='OpenScience'] <- TRUE
-dat.pred3_fos$smalln[(dat.pred3_fos$FoS %in% FoS_smallRR) & dat.pred3_fos$Tag=='Reproducibility'] <- TRUE
-
-dat.pred3_fos$predict_p <- logodds_to_prob(dat.pred3_fos$predict)
-dat.pred3_fos$LB <- (dat.pred3_fos$predict - 1.96*dat.pred3_fos$SE)
-dat.pred3_fos$UB <- (dat.pred3_fos$predict + 1.96*dat.pred3_fos$SE)
-dat.pred3_fos$LB_p <- logodds_to_prob(dat.pred3_fos$LB)
-dat.pred3_fos$UB_p <- logodds_to_prob(dat.pred3_fos$UB)
-
-dat.pred3_fos.journals2017 <- filter(dat.pred3_fos, !Conference, Year2==0) #fix year and document type, vary team size
-dat.pred3_fos.journals4auth <- filter(dat.pred3_fos, !Conference, authorCount == 4) #fix team size and document type, vary year of publication
-
-
-  
-#Team Size
-p1 <- ggplot(dat.pred3_fos.journals2017, aes(x=authorCount, group=Tag)) + 
-  geom_ribbon(aes(ymin=LB_p, ymax=UB_p, fill=Tag), alpha=0.2) + 
-  geom_line(aes(y=predict_p, color=Tag, linetype=smalln)) + facet_wrap(~ FoS, nrow=2) +
-  theme_bw() + theme(legend.position='bottom', panel.grid=element_blank()) +
-  scale_color_manual(name=NULL, values=c('orchid4','turquoise')) +
-  scale_fill_manual(name=NULL, values=c('orchid4','turquoise')) +
-  scale_linetype(name='small N') +
-  xlab('Number of Authors') + ylab('Probability of Female in a High Status Position') +
-  labs(title='Female Lead Authorship versus Team Size', subtitle='Journal Articles Published in 2017')
-#Time
-p2 <- ggplot(dat.pred3_fos.journals4auth, aes(x=Year2+2017, group=Tag)) + 
-  geom_ribbon(aes(ymin=LB_p, ymax=UB_p, fill=Tag), alpha=0.2) + 
-  geom_line(aes(y=predict_p, color=Tag, linetype=smalln)) + facet_wrap(~ FoS, nrow=2) +
-  theme_bw() + theme(legend.position='bottom', panel.grid=element_blank()) +
-  scale_color_manual(name=NULL, values=c('orchid4','turquoise')) +
-  scale_fill_manual(name=NULL, values=c('orchid4','turquoise')) +
-  scale_x_continuous(breaks=seq(2011,2017,2)) +
-  scale_linetype(name='small N') +
-  xlab('Year of Publication') + ylab('Probability of Female in a High Status Position') +
-  labs(title='Female Lead Authorship vs Publication Year', subtitle='Journal Articles with 4 Authors (Average Size)')
-
-#Team Size
-pdf('figures/PredictedProbs_multiauthor_teamsize_spline_stratify.pdf', width=8, height=6)
-print(p1)
-dev.off()
-
-#Time
-pdf('figures/PredictedProbs_multiauthor_year_spline_stratify.pdf', width=8, height=6)
-print(p2)
-dev.off()
-
-
-#Save data with FoS indicators to use in text_analysis.R
-
-PaperID_with_topFOS <- dat3a[,c('PaperId',topFOS3)]
-save(PaperID_with_topFOS, file='PaperID_with_topFOS.Rdata')
 
