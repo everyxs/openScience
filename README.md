@@ -2,7 +2,7 @@ Click [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/g
 
 ### Open science, communal culture, and women’s participation in the movement to improve science
 
-Mary C. Murphy <sup>a,1,2</sup>, Amanda Mejia <sup>a,1</sup>, Jorge Mejia <sup>a,1</sup>, Xiaoran Yan <sup>a,1</sup>, Sapna Cheryan <sup>b</sup>, Nilanjana Dasgupta <sup>c</sup>, Mesmin Destin <sup>d</sup>, Stephanie A. Fryberg <sup>e</sup>, Julie A. Garcia <sup>f</sup>, Elizabeth L. Haines <sup>g</sup>, Judith M. Harackiewicz <sup>h</sup>, Alison Ledgerwood <sup>i</sup>, Corinne A. Moss-Racusin <sup>j</sup>, Lora E. Park <sup>k<sup>, Sylvia P. Perry <sup>d</sup>, Kate A. Ratliff <sup>l</sup>, Aneeta Rattan <sup>m</sup>, Diana T. Sanchez <sup>n</sup>, Krishna Savani <sup>o</sup>, Denise Sekaquaptewa <sup>e</sup>, Jessi L. Smith <sup>p</sup>, Valerie Jones Taylor <sup>q</sup>, Dustin B. Thoman <sup>r</sup>, Daryl A. Wout <sup>s</sup>, Patricia L. Mabry <sup>t,3</sup>, Susanne Ressl <sup>a,u,3</sup>, Amanda Diekman <sup>a,3</sup>, and Franco Pestilli <sup>a,u,3</sup>
+Mary C. Murphy <sup>a,1,2</sup>, Amanda Mejia <sup>a,1</sup>, Jorge Mejia <sup>a,1</sup>, Xiaoran Yan <sup>a,1</sup>, Sapna Cheryan <sup>b</sup>, Nilanjana Dasgupta <sup>c</sup>, Mesmin Destin <sup>d</sup>, Stephanie A. Fryberg <sup>e</sup>, Julie A. Garcia <sup>f</sup>, Elizabeth L. Haines <sup>g</sup>, Judith M. Harackiewicz <sup>h</sup>, Alison Ledgerwood <sup>i</sup>, Corinne A. Moss-Racusin <sup>j</sup>, Lora E. Park <sup>k</sup>, Sylvia P. Perry <sup>d</sup>, Kate A. Ratliff <sup>l</sup>, Aneeta Rattan <sup>m</sup>, Diana T. Sanchez <sup>n</sup>, Krishna Savani <sup>o</sup>, Denise Sekaquaptewa <sup>e</sup>, Jessi L. Smith <sup>p</sup>, Valerie Jones Taylor <sup>q</sup>, Dustin B. Thoman <sup>r</sup>, Daryl A. Wout <sup>s</sup>, Patricia L. Mabry <sup>t,3</sup>, Susanne Ressl <sup>a,u,3</sup>, Amanda Diekman <sup>a,3</sup>, and Franco Pestilli <sup>a,u,3</sup>
 
 #### Authors affiliations
 <sup>a</sup> Indiana University Bloomington
@@ -49,8 +49,8 @@ Mary C. Murphy <sup>a,1,2</sup>, Amanda Mejia <sup>a,1</sup>, Jorge Mejia <sup>a
 
 #### Authors' contributions
 
-1 M.C.M., A.M., J.M., and X.Y. contributed equally to this work.
+<sup>1</sup> M.C.M., A.M., J.M., and X.Y. contributed equally to this work.
 
-2 To whom correspondence may be addressed. Email: mcmpsych@indiana.edu. 
+<sup>2</sup> To whom correspondence may be addressed. Email: mcmpsych@indiana.edu. 
 
-3 P.L.M., S.R., A.D., and F.P. contributed equally to this work.
+<sup>3<sup> P.L.M., S.R., A.D., and F.P. contributed equally to this work.
