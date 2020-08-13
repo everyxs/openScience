@@ -9,4 +9,4 @@ Author block 2:
 Sapna Cheryan, Nilanjana Dasgupta, Mesmin Destin, Stephanie A Fryberg, Julie A. Garcia, Elizabeth L. Haines, Judith M. Harackiewicz, Alison Ledgerwood, Corinne A. Moss-Racusin, Lora E Park, Sylvia P. Perry, Kate A. Ratliff, Aneeta Rattan, Diana T. Sanchez, Krishna Savani, Denise Sekaquaptewa, Jessi L. Smith, Valerie Jones Taylor, Dustin B. Thoman, Daryl A. Wout,
 
 Author block 3:
-Patricia L. Mabry, Susanne Ressl, Amanda Diekman**, Franco Pestilli
+Patricia L. Mabry, Susanne Ressl, Amanda Diekman, Franco Pestilli
