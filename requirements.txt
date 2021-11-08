@@ -1,4 +1,4 @@
-jupyterhub==1.0.0
+jupyterhub==1.5.0
 numpy==1.17.1
 pandas==0.25.1 
 matplotlib==3.1.1
